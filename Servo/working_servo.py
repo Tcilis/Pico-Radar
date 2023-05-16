@@ -1,4 +1,5 @@
 # init servo
+# https://forums.raspberrypi.com/viewtopic.php?t=309714
 
 import utime
 from machine import PWM,Pin

@@ -8,8 +8,8 @@ servo.freq(50)
 
 #define stop,forward and reverse timing in ns
 servoStop= 1500000
-servoForward = 1000000
-servoReverse = 2000000
+servoForward = 3000000
+servoReverse = 600000
 
 servo.duty_ns(servoForward)
 utime.sleep(2)

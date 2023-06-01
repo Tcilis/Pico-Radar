@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Button
 
 # Polar plot attributes and initial conditions
 fig = plt.figure(facecolor='k')
@@ -17,5 +18,14 @@ pols, = ax.plot([], linestyle='', marker='o', markerfacecolor='w',
                 markeredgecolor='#EFEFEF', markeredgewidth=1.0,
                 markersize=10.0, alpha=0.9)  # Dots for radar points
 line1, = ax.plot([], color='w', linewidth=4.0)  # Sweeping arm plot
+
+# Function to handle button click event
+def close_button_clicked(event):
+    plt.close()
+
+# Create a close button and position it in the bottom right corner
+button_ax = fig.add_axes([0.85, 0.05, 0.1, 0.05])
+close_button = Button(button_ax, 'Close', color='w', hovercolor='gray')
+close_button.on_clicked(close_button_clicked)
 
 plt.show()

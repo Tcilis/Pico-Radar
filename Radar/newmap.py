@@ -149,6 +149,14 @@ while running:
             running = False
             pygame.quit()
             sys.exit()
+        # Check if the left mouse button was clicked
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # Left mouse button
+                # Check if the click position is within the close button boundaries
+                if is_button_clicked(event.pos):
+                    running = False
+                    pygame.quit()
+                    sys.exit()
 
     # Update the radar values from the file
     update_values()

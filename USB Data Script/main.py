@@ -1,11 +1,10 @@
 import os
-import utime
 import time
-from machine import PWM,Pin
 import _thread
-servo = PWM(Pin(2))
-servo.freq(8)
-    
+import utime
+from servo import Servo
+from machine import PWM,Pin
+
 #Set up trigger and echo pins
 trig = Pin(22, Pin.OUT)
 echo = Pin(21, Pin.IN, Pin.PULL_DOWN)
@@ -14,10 +13,6 @@ uart = machine.UART(0, baudrate=9600)
 print("UART Info : ", uart)
 utime.sleep(3)
 
-servoStop= 1500000
-servoForward = 3000000
-servoReverse = 600000
-# Continuously run the code
 
 def core0_thread():
     while True:
@@ -45,19 +40,29 @@ def core0_thread():
      time.sleep(1)
      
 def core1_thread():
-    
-    servoStop= 150000
-    servoForward = 3500000
-    servoReverse = 100000
+    s1 = Servo(2)       # Servo pin is connected to GP0
 
-    while True:
-        servo.duty_ns(servoForward)
-        utime.sleep(3)
-        servo.duty_ns(servoStop)
-        utime.sleep(0.2)
-        servo.duty_ns(servoReverse)
-        utime.sleep(3)
-        servo.duty_ns(servoStop)
+    def servo_Map(x, in_min, in_max, out_min, out_max):
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+ 
+    def servo_Angle(angle):
+        if angle < 0:
+            angle = 0
+        if angle > 180:
+            angle = 180
+        s1.goto(round(servo_Map(angle,0,180,0,1024))) # Convert range value to angle value
+    
+    if __name__ == '__main__':
+        while True:	
+            print("Turn left ...")
+            for i in range(0,180,10):
+                servo_Angle(i)
+                utime.sleep(0.2)
+            print("Turn right ...")
+            for i in range(180,0,-10):
+                servo_Angle(i)
+                utime.sleep(0.2)
+
 
 second_thread = _thread.start_new_thread(core1_thread, ())
 core0_thread()

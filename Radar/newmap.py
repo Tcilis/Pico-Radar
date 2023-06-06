@@ -29,7 +29,7 @@ center_y = height
 font = pygame.font.Font(None, 15)
 
 # Define the file path where the radar data is stored
-file_path = "C:/Users/Philip/Desktop/data.txt"
+file_path = "C:\\Users\\User\\Desktop\\data.txt"
 
 # Function to update the radar values from the file
 def update_values():
@@ -52,7 +52,7 @@ def update_values():
         # Move to the next line in the file
         current_line_index = (current_line_index + 1) % len(lines)
         # Pause the program for a short time to simulate real-time updates
-        time.sleep(0.1)
+        time.sleep(0.07)
 
         # Check if an object already exists at the current angle
         existing_object = None
@@ -97,7 +97,7 @@ def draw_radar():
     for obj in detected_objects:
         obj_angle, obj_distance = obj
         # Check if the object angle is within the desired range (0 to 180 degrees)
-        if 0 <= obj_angle <= 180:
+        if 0 <= obj_angle <= 160:
             # Calculate the coordinates of the dot based on the object angle and distance
             dot_angle = math.radians(obj_angle)
             dot_x = center_x + obj_distance / radar_radius * radar_radius * math.cos(dot_angle)

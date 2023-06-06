@@ -6,7 +6,7 @@ import serial
 import time
 
 serialPort = serial.Serial(
-    port="COM4", baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE
+    port="COM3", baudrate=9600, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE
 )
 serialString = ""  # Used to hold data coming over UART
 while 1:
@@ -19,5 +19,8 @@ while 1:
         # Print the contents of the serial data
         try:
             print(serialString.decode("Ascii"))
+            with open("C:\\Users\\User\\Desktop\\data.txt", 'w') as f:
+                f.write(serialString.decode("Ascii"))
+
         except:
             pass

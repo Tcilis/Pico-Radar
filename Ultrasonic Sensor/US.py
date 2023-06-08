@@ -4,11 +4,11 @@ from machine import Pin
 import time
 
 # Set up trigger and echo pins
-trig = Pin(17, Pin.OUT)
-echo = Pin(16, Pin.IN, Pin.PULL_DOWN)
+trig = Pin(22, Pin.OUT)
+echo = Pin(21, Pin.IN, Pin.PULL_DOWN)
 
 # Continuously run the code
-while True:
+def ultrasonic_func():
      # Set trigger pin to low to ensure a clean start
      trig.value(0)
      # Wait for 100 milliseconds before sending the trigger signal to the sensor to avoid interference

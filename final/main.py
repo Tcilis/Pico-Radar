@@ -6,8 +6,8 @@ from servo import Servo
 from machine import PWM,Pin
 
 #Set up trigger and echo pins
-trig = Pin(22, Pin.OUT)
-echo = Pin(21, Pin.IN, Pin.PULL_DOWN)
+trig = Pin(21, Pin.OUT)
+echo = Pin(22, Pin.IN, Pin.PULL_DOWN)
 
 uart = machine.UART(0, baudrate=9600)
 print("UART Info : ", uart)
@@ -54,14 +54,13 @@ def core1_thread():
     
     if __name__ == '__main__':
         while True:	
-            print("Turn left ...")
-            for i in range(0,180,10):
+            for i in range(0,180,1):
                 servo_Angle(i)
-                utime.sleep(0.2)
-            print("Turn right ...")
-            for i in range(180,0,-10):
+                utime.sleep(0.1)
+            
+            for i in range(180,0,-1):
                 servo_Angle(i)
-                utime.sleep(0.2)
+                utime.sleep(0.1)
 
 
 second_thread = _thread.start_new_thread(core1_thread, ())

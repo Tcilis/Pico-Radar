@@ -21,7 +21,7 @@ text_color = (255, 255, 255)      # White
 button_color = (0, 0, 0)          # Black
 
 # Define the properties of the radar
-radar_radius = 400
+radar_radius = 200
 center_x = width // 2
 center_y = height
 
@@ -52,7 +52,7 @@ def update_values():
         # Move to the next line in the file
         current_line_index = (current_line_index + 1) % len(lines)
         # Pause the program for a short time to simulate real-time updates
-        time.sleep(0.07)
+        time.sleep(0.087)
 
         # Check if an object already exists at the current angle
         existing_object = None
@@ -97,7 +97,7 @@ def draw_radar():
     for obj in detected_objects:
         obj_angle, obj_distance = obj
         # Check if the object angle is within the desired range (0 to 180 degrees)
-        if 0 <= obj_angle <= 160:
+        if 0 <= obj_angle <= 180:
             # Calculate the coordinates of the dot based on the object angle and distance
             dot_angle = math.radians(obj_angle)
             dot_x = center_x + obj_distance / radar_radius * radar_radius * math.cos(dot_angle)
@@ -109,6 +109,10 @@ def draw_radar():
     draw_text("Angle: " + str(current_angle) + "°", 20, 20)
     if current_distance:
         draw_text("Distance: " + str(current_distance) + "cm", 20, 40)
+
+    if current_angle == 180:
+        time.sleep(2.7)
+
 
 # Function to render and display text on the screen
 def draw_text(text, x, y, color=text_color):
